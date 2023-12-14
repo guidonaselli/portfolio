@@ -1,7 +1,7 @@
 import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
-import { LuGraduationCap } from "react-icons/lu";
+import { FaGraduationCap } from "react-icons/fa";
 import corpcommentImg from "@/public/corpcomment.png";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
@@ -16,17 +16,19 @@ export const links = [
     hash: "#about",
   },
   {
-    name: "Projects",
-    hash: "#projects",
+    name: "Experience",
+    hash: "#experience",
   },
   {
     name: "Skills",
     hash: "#skills",
   },
+
   {
-    name: "Experience",
-    hash: "#experience",
+    name: "Projects",
+    hash: "#projects",
   },
+
   {
     name: "Contact",
     hash: "#contact",
@@ -35,20 +37,20 @@ export const links = [
 
 export const experiencesData = [
   {
-    title: "Graduated bootcamp",
-    location: "Miami, FL",
+    title: "Fullstack Bootcamp",
+    location: "Argentina, CABA",
     description:
-      "I graduated after 6 months of studying. I immediately found a job as a front-end developer.",
-    icon: React.createElement(LuGraduationCap),
-    date: "2019",
+      "I graduated after 6 months of studying. I learned HTML, CSS, JavaScript, Vuejs, Node.js and SQL.",
+    icon: React.createElement(FaGraduationCap),
+    date: "2021",
   },
   {
-    title: "Front-End Developer",
-    location: "Orlando, FL",
+    title: "System Analyst",
+    location: "Argentina, CABA",
     description:
-      "I worked as a front-end developer for 2 years in 1 job and 1 year in another job. I also upskilled to the full stack.",
+      "I graduated in a technicature of system analyst. I learned Java, Javascript, Vuejs, C#, Java, SQL, UML.",
     icon: React.createElement(CgWorkAlt),
-    date: "2019 - 2021",
+    date: "2022 - 2024",
   },
   {
     title: "Full-Stack Developer",
