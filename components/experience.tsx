@@ -2,9 +2,14 @@
 
 import React, { useState } from "react";
 import SectionHeading from "./section-heading";
-import { Chrono } from "react-chrono";
 import { experiencesData } from "@/lib/data";
 import { useTheme } from "@/context/theme-context";
+import dynamic from "next/dynamic";
+
+// Importa Chrono de forma dinámica
+const Chrono = dynamic(() => import("react-chrono").then((mod) => mod.Chrono), {
+  ssr: false,
+});
 
 export default function Experience() {
   const { theme } = useTheme();
@@ -30,14 +35,14 @@ export default function Experience() {
       >
         {experiencesData.map((item, index) => (
           <div key={index}>
-            <h3 className="text-xl font-bold text-gray-800 dark:text-white">
-              {item.title}
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white flex justify-start items-center gap-7">
+              <p>{item.icon}</p>
+              <p>{item.title}</p>
             </h3>
             <span className="text-gray-600 dark:text-gray-300">
               {item.date} - {item.location}
             </span>
             <p>{item.description}</p>
-            {item.icon && <span className="chrono-icon">{item.icon}</span>}
           </div>
         ))}
       </Chrono>
