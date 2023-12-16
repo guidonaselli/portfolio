@@ -24,7 +24,7 @@ export default function Experience() {
         key={theme}
         theme={{
           primary: theme === "light" ? "#e5e7eb" : "#3c424f",
-          secondary: theme === "light" ? "#e4e1fc" : "#4c4c72",
+          secondary: theme === "light" ? "#e5e7eb" : "#3c424f",
           cardBgColor: theme === "light" ? "white" : "#29303d",
           cardForeColor: theme === "light" ? "black" : "white",
           titleColor: theme === "light" ? "black" : "white",
