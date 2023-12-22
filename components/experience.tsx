@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import SectionHeading from "./section-heading";
 import { experiencesData } from "@/lib/data";
 import { useTheme } from "@/context/theme-context";
@@ -8,6 +8,11 @@ import dynamic from "next/dynamic";
 
 // Importa Chrono de forma dinámica
 const Chrono = dynamic(() => import("react-chrono").then((mod) => mod.Chrono), {
+  loading: () => (
+    <div className="flex items-center justify-center h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-indigo-500"></div>
+    </div>
+  ),
   ssr: false,
 });
 
