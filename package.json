@@ -37,7 +37,6 @@
 		"typescript": "5.3.3"
 	},
 	"devDependencies": {
-		"@types/react-vertical-timeline-component": "^3.3.6",
-		"gh-pages": "^6.1.0"
+		"@types/react-vertical-timeline-component": "^3.3.6"
 	}
 }
