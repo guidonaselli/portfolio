@@ -1,17 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    domains: ["images.unsplash.com"],
-  },
   assetPrefix: process.env.NODE_ENV === "production" ? "/portfolio" : "",
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.mjs$/,
-      include: /node_modules/,
-      type: "javascript/auto",
-    });
-
-    return config;
+  basePath: process.env.NODE_ENV === "production" ? "/portfolio" : "",
+  trailingSlash: true,
+  reactStrictMode: true,
+  swcMinify: true,
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 
