@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: "/guidonaselli.github.io",
   images: {
     remotePatterns: [
       {
@@ -20,7 +19,6 @@ const nextConfig = {
       // Configuración de Server Actions va aquí
     },
   },
-  output: "export",
 };
 
 module.exports = nextConfig;
