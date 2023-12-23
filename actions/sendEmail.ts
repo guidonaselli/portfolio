@@ -1,15 +1,24 @@
-import React from "react";
 import { Resend } from "resend";
-import { validateString, getErrorMessage } from "@/lib/utils";
 import ContactFormEmail from "@/email/contact-form-email";
+import ReactDOMServer from "react-dom/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
+
+const validateString = (str: string | null, maxLength: number): boolean => {
+  if (typeof str !== "string") return false;
+  return str.length <= maxLength;
+};
 
 export const sendEmail = async (formData: FormData) => {
-  const senderEmail = formData.get("senderEmail");
+  let senderEmail = formData.get("senderEmail") as string;
   const message = formData.get("message");
 
-  // simple server-side validation
+  if (typeof senderEmail !== "string" || typeof message !== "string") {
+    return {
+      error: "Invalid form data",
+    };
+  }
+
   if (!validateString(senderEmail, 500)) {
     return {
       error: "Invalid sender email",
@@ -23,20 +32,28 @@ export const sendEmail = async (formData: FormData) => {
 
   let data;
   try {
-    //CAMBIAR EMAIL - CORREO
+    // Call your function to get the JSX element
+    const emailElement = ContactFormEmail({ message, senderEmail });
+
+    // Render the JSX element to a string
+    const emailContent = ReactDOMServer.renderToString(emailElement);
+
+    // Send the email
     data = await resend.emails.send({
       from: "Contact Form <onboarding@resend.dev>",
       to: "guidonaselli@gmail.com",
       subject: "Message from contact form",
       reply_to: senderEmail,
-      react: React.createElement(ContactFormEmail, {
-        message: message,
-        senderEmail: senderEmail,
-      }),
+      html: emailContent, // Use the rendered string here
     });
   } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        error: error.message,
+      };
+    }
     return {
-      error: getErrorMessage(error),
+      error: "An unknown error occurred",
     };
   }
 
