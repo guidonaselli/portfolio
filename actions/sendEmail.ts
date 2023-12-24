@@ -18,8 +18,10 @@ export const sendEmail = async (formData: FormData) => {
       text: message,
       react: EmailTemplate({ message, senderEmail }),
     });
+    console.log("sendEmail completed"); // Add this
     return { data };
   } catch (error) {
+    console.error("sendEmail error", error); // Add this
     throw error instanceof Error
       ? error
       : new Error("An unknown error occurred");
