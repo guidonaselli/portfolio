@@ -4,6 +4,7 @@ import { EmailTemplate } from "@/email/email-template";
 import * as React from "react";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { data } from "autoprefixer";
+import { m } from "framer-motion";
 
 const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
@@ -36,10 +37,14 @@ export const sendEmail = async (formData: FormData) => {
       subject: "Message from contact form",
       reply_to: senderEmail,
       text: message,
-      react: EmailTemplate({ message, senderEmail }),
+      react: EmailTemplate({ message, senderEmail }), // <EmailTemplate message={message} senderEmail={senderEmail} />,
     });
-    return Response.json(data);
+
+    return { data };
   } catch (error) {
-    return Response.json({ error });
+    return {
+      error:
+        error instanceof Error ? error.message : "An unknown error occurred",
+    };
   }
 };
