@@ -41,17 +41,13 @@ export default function Contact() {
 
       <form
         className="mt-10 flex flex-col dark:text-black"
-        onSubmit={async (event) => {
-          event.preventDefault();
-          const formData = new FormData(event.target as HTMLFormElement);
+        action={async (formData) => {
           const { data, error } = await sendEmail(formData);
 
           if (error) {
             toast.error(error);
             return;
-          }
-
-          toast.success("Email sent successfully!");
+          } else toast.success("Email sent successfully!");
         }}
       >
         <input
