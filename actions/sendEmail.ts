@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import ContactFormEmail from "@/email/contact-form-email";
-import { renderToStaticMarkup } from "react-dom/server";
+import { renderToString } from "react-dom/server"; // Use renderToString instead
 
 const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
@@ -30,7 +30,7 @@ export const sendEmail = async (formData: FormData) => {
     const emailElement = ContactFormEmail({ message, senderEmail });
 
     // Render the JSX element to a string using renderToStaticMarkup
-    const emailContent = renderToStaticMarkup(emailElement);
+    const emailContent = renderToString(emailElement);
 
     // Send the email
     const data = await resend.emails.send({
