@@ -42,18 +42,16 @@ export default function Contact() {
       <form
         className="mt-10 flex flex-col dark:text-black"
         onSubmit={async (event) => {
+          console.log("Form submitted");
           event.preventDefault();
           const formData = new FormData(event.target as HTMLFormElement);
           try {
             await sendEmail(formData);
             toast.success("Email sent successfully!");
           } catch (error) {
-            if (error instanceof Error) {
-              toast.error(error.message);
-            } else {
-              // Handle any other types of errors here
-              toast.error("An unexpected error occurred");
-            }
+            console.error(error);
+            // Handle any other types of errors here
+            toast.error("An unexpected error occurred");
           }
         }}
       >

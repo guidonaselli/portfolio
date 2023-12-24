@@ -4,6 +4,7 @@ import { EmailTemplate } from "@/email/email-template";
 const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
 export const sendEmail = async (formData: FormData) => {
+  console.log("sendEmail started");
   let senderEmail = formData.get("senderEmail") as string;
   const message = formData.get("message") as string;
 
