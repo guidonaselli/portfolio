@@ -54,12 +54,12 @@ export const experiencesData = [
     date: "2022 - 2024",
   },
   {
-    title: "Full-Stack Developer",
-    location: "Houston, TX",
+    title: "Accounting assistant",
+    location: "Argentina, CABA",
     description:
-      "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma and MongoDB. I'm open to full-time opportunities.",
+      "Since I finished high school I have worked at an accounting firm as an assistant.",
     icon: React.createElement(CgWorkAlt),
-    date: "2021 - present",
+    date: "2017 - present",
   },
 ] as const;
 
