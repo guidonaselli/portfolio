@@ -1,7 +1,9 @@
 import { Resend } from "resend";
 import ReactDOMServer from "react-dom/server"; // Use renderToString instead
-import EmailRenderer from "@/email/email-renderer";
-import React from "react";
+import { EmailTemplate } from "@/email/email-template";
+import * as React from "react";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { data } from "autoprefixer";
 
 const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
@@ -27,27 +29,17 @@ export const sendEmail = async (formData: FormData) => {
   }
 
   try {
-    const emailContent = ReactDOMServer.renderToString(
-      React.createElement(EmailRenderer, {
-        message: message,
-        senderEmail: senderEmail,
-      })
-    );
-
-    // Send the email
+    // Enviar el correo electrónico
     const data = await resend.emails.send({
       from: "Contact Form <onboarding@resend.dev>",
       to: "guidonaselli@gmail.com",
       subject: "Message from contact form",
       reply_to: senderEmail,
-      html: emailContent,
+      text: message,
+      react: EmailTemplate({ message, senderEmail }),
     });
-
-    return { data };
+    return Response.json(data);
   } catch (error) {
-    return {
-      error:
-        error instanceof Error ? error.message : "An unknown error occurred",
-    };
+    return Response.json({ error });
   }
 };
