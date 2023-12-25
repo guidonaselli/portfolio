@@ -6,7 +6,8 @@ import { motion } from "framer-motion";
 import { useSectionInView } from "@/lib/hooks";
 import { sendEmail } from "@/actions/sendEmail";
 import SubmitBtn from "./submit-btn";
-import toast from "react-hot-toast";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Contact() {
   const { ref } = useSectionInView("Contact");
@@ -42,7 +43,6 @@ export default function Contact() {
       <form
         className="mt-10 flex flex-col dark:text-black"
         onSubmit={async (event) => {
-          console.log("Form submitted");
           event.preventDefault();
           const formData = new FormData(event.target as HTMLFormElement);
           try {
@@ -51,7 +51,7 @@ export default function Contact() {
           } catch (error) {
             console.error(error);
             // Handle any other types of errors here
-            toast.error("An unexpected error occurred");
+            toast.error("An unexpected error occurred: " + error);
           }
         }}
       >
@@ -72,6 +72,7 @@ export default function Contact() {
         />
         <SubmitBtn />
       </form>
+      <ToastContainer />
     </motion.section>
   );
 }
