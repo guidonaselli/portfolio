@@ -10,6 +10,7 @@ export const sendEmail = async (formData: FormData) => {
 
   try {
     // Enviar el correo electrónico
+    console.log("About to call resend.emails.send");
     const data = await resend.emails.send({
       from: "<onboarding@resend.dev>",
       to: "guidonaselli@gmail.com",
