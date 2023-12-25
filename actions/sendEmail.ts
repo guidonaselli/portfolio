@@ -2,7 +2,6 @@ import { Resend } from "resend";
 import { EmailTemplate } from "@/email/email-template";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-console.log(process.env.RESEND_API_KEY);
 
 export const sendEmail = async (formData: FormData) => {
   console.log("sendEmail started");
