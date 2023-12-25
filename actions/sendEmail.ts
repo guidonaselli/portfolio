@@ -9,7 +9,7 @@ export const sendEmail = async (formData: FormData) => {
 
   try {
     console.log("About to call resend.emails.send");
-    let { data } = await resend.emails.send({
+    const { data } = await resend.emails.send({
       from: "Portfolio <onboarding@resend.dev>",
       to: ["guidonaselli@gmail.com"],
       subject: "Message from portfolio contact form",
