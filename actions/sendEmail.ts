@@ -2,6 +2,7 @@ import { EmailTemplate } from "@/email/email-template";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
+resend.apiKeys.create({ name: "Production" });
 
 export const sendEmail = async (formData: FormData) => {
   let senderEmail = formData.get("senderEmail") as string;
@@ -10,7 +11,7 @@ export const sendEmail = async (formData: FormData) => {
   try {
     console.log("About to call resend.emails.send");
     const { data } = await resend.emails.send({
-      from: "Portfolio <onboarding@resend.dev>",
+      from: "<onboarding@resend.dev>",
       to: ["guidonaselli@gmail.com"],
       subject: "Message from portfolio contact form",
       text: message,

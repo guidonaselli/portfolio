@@ -65,18 +65,11 @@ export const experiencesData = [
 
 export const projectsData = [
   {
-    title: "BNF Contadores",
+    title: "TodoServicios",
     description:
-      "My first freelancer project. A single page for an accounting company. Its very simple and clean.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    imageUrl: projectImg1,
-  },
-  {
-    title: "Andar",
-    description:
-      "A website for an Argentine medical prepaid. It has the function to select the health insurance plan that the consumer prefers.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    imageUrl: projectImg2,
+      "E-commerce of services. Able to registering users, monthly subscription to publish a service, contacting a service creator with a real-time chat.",
+    tags: ["Django", "Tailwind", "PostgreSQL", "IN DEVELOPMENT!"],
+    imageUrl: projectImg4,
   },
   {
     title: "ARchitect",
@@ -86,11 +79,18 @@ export const projectsData = [
     imageUrl: projectImg3,
   },
   {
-    title: "TodoServicios",
+    title: "Andar",
     description:
-      "E-commerce of services. Able to registering users, monthly subscription to publish a service, contacting a service creator with a real-time chat.",
-    tags: ["Django", "Tailwind", "PostgreSQL", "IN DEVELOPMENT!"],
-    imageUrl: projectImg4,
+      "A website for an Argentine medical prepaid. It has the function to select the health insurance plan that the consumer prefers.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    imageUrl: projectImg2,
+  },
+  {
+    title: "BNF Contadores",
+    description:
+      "My first freelancer project. A single page for an accounting company. Its very simple and clean.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    imageUrl: projectImg1,
   },
 ] as const;
 
