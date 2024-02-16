@@ -15,7 +15,7 @@ export default function Home() {
       <Experience />
       <Skills />
       <Projects />
-      <Contact />
+      {/* <Contact /> Contact form is not working at the moment. */}
     </main>
   );
 }

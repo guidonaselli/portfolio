@@ -25,10 +25,10 @@ export default function About() {
         learned frontend design principles using VueJS and Vanilla CSS. I also
         learned a slight backend part with Spring boot. Then I enrolled in a
         career as a <span className="font-bold">Systems Analyst</span>. There I
-        learned in depth Java, Node.js, Vue.js, SQL, Kotlin, the principles of
-        agile methodologies (scrum and kanban) and good coding practices. I also
-        took some courses to learn Django and React, and in them I also used
-        Firebase and PostgreSQL.{" "}
+        have learned in depth Java, Node.js, Vue.js, SQL, Kotlin, the principles
+        of agile methodologies (scrum and kanban) and good coding practices. I
+        also took a few courses to learn the basics of Django and React, and in
+        them I also used Firebase and PostgreSQL.{" "}
         <span className="italic">
           My favorite part of programming is the problem-solving aspect and
           being in constantly learning
