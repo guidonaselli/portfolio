@@ -35,7 +35,7 @@ export default function Experience() {
           titleColor: theme === "light" ? "black" : "white",
         }}
         mode="VERTICAL_ALTERNATING"
-        hideControls={true}
+        disableToolbar={true}
         timelinePointShape="diamond"
       >
         {experiencesData.map((item, index) => (
