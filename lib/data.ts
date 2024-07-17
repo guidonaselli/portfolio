@@ -6,6 +6,7 @@ import projectImg1 from "@/public/projectImg1.png";
 import projectImg2 from "@/public/projectImg2.png";
 import projectImg3 from "@/public/projectImg3.png";
 import projectImg4 from "@/public/projectImg4.png";
+import projectImg5 from "@/public/projectImg5.png";
 
 export const links = [
   {
@@ -85,7 +86,7 @@ export const projectsData = [
     description:
       "E-commerce of services. Able to registering users, monthly subscription to publish a service, contacting a service creator with a real-time chat.",
     tags: ["Django", "Tailwind", "PostgreSQL", "ON DEVELOPMENT!"],
-    imageUrl: projectImg4,
+    imageUrl: projectImg5,
   },
   {
     title: "SignalTech",
