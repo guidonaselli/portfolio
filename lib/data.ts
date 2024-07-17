@@ -63,7 +63,7 @@ export const experiencesData = [
   },
   {
     title: "Freelancer",
-    location: "",
+    location: "LATAM",
     description:
       "I worked as a freelancer while studying to put the theoretical knowledge into practice.",
     icon: React.createElement(CgWorkAlt),

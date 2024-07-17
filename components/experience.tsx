@@ -45,7 +45,7 @@ export default function Experience() {
               <p>{item.title}</p>
             </h3>
             <span className="text-gray-600 dark:text-gray-300">
-              {item.date} - {item.location}
+              {item.date} | {item.location}
             </span>
             <p>{item.description}</p>
           </div>
