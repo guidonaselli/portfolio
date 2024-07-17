@@ -38,6 +38,14 @@ export const links = [
 
 export const experiencesData = [
   {
+    title: "Accounting assistant",
+    location: "Argentina, CABA",
+    description:
+      "Since I finished high school, I have worked at an accounting firm as an assistant.",
+    icon: React.createElement(CgWorkAlt),
+    date: "2017 - 2022",
+  },
+  {
     title: "Fullstack Bootcamp",
     location: "Argentina, CABA",
     description:
@@ -54,12 +62,20 @@ export const experiencesData = [
     date: "2022 - 2024",
   },
   {
-    title: "Accounting assistant",
+    title: "Freelancer",
+    location: "",
+    description:
+      "I worked as a freelancer while studying to put the theoretical knowledge into practice.",
+    icon: React.createElement(CgWorkAlt),
+    date: "2022 - 2024",
+  },
+  {
+    title: "Interaxa S.A.",
     location: "Argentina, CABA",
     description:
-      "Since I finished high school I have worked at an accounting firm as an assistant.",
+      "I work as a fullstack developer. I work with Angular.js, Java Springboot, PostreSQL, Docker",
     icon: React.createElement(CgWorkAlt),
-    date: "2017 - present",
+    date: "2024 - actual",
   },
 ] as const;
 
@@ -68,7 +84,14 @@ export const projectsData = [
     title: "TodoServicios",
     description:
       "E-commerce of services. Able to registering users, monthly subscription to publish a service, contacting a service creator with a real-time chat.",
-    tags: ["Django", "Tailwind", "PostgreSQL", "IN DEVELOPMENT!"],
+    tags: ["Django", "Tailwind", "PostgreSQL", "ON DEVELOPMENT!"],
+    imageUrl: projectImg4,
+  },
+  {
+    title: "SignalTech",
+    description:
+      "E-commerce for a company that sells acoustic and visual signage",
+    tags: ["TypeScript", "Firebase"],
     imageUrl: projectImg4,
   },
   {
