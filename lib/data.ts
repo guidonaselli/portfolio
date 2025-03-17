@@ -55,19 +55,19 @@ export const experiencesData = [
     date: "2021",
   },
   {
-    title: "System Analyst",
-    location: "Argentina, CABA",
-    description:
-      "I graduated in a technicature of system analyst. I learned Java, Javascript, Vuejs, C#, Java, SQL, UML.",
-    icon: React.createElement(FaGraduationCap),
-    date: "2022 - 2024",
-  },
-  {
     title: "Freelancer",
     location: "LATAM",
     description:
       "I worked as a freelancer while studying to put the theoretical knowledge into practice.",
     icon: React.createElement(CgWorkAlt),
+    date: "2021 - 2024",
+  },
+  {
+    title: "System Analyst",
+    location: "Argentina, CABA",
+    description:
+      "I graduated in a technicature of system analyst. I learned Java, Javascript, Vuejs, C#, Java, SQL, UML.",
+    icon: React.createElement(FaGraduationCap),
     date: "2022 - 2024",
   },
   {
@@ -77,6 +77,14 @@ export const experiencesData = [
       "I work as a fullstack developer. I work with Angular.js, Java Springboot, PostreSQL, Docker",
     icon: React.createElement(CgWorkAlt),
     date: "2024 - actual",
+  },
+  {
+    title: "Bachelors Degree in Computer Science",
+    location: "Argentina, CABA",
+    description:
+      "I am currently studying a degree in computer science to complement my knowledge and my previous studies.",
+    icon: React.createElement(FaGraduationCap),
+    date: "2025 - Expected June 2026",
   },
 ] as const;
 

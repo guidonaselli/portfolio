@@ -38,7 +38,7 @@ export default function Experience() {
         disableToolbar={true}
         timelinePointShape="diamond"
       >
-        {experiencesData.map((item, index) => (
+        {[...experiencesData].reverse().map((item, index) => (
           <div key={index}>
             <h3 className="text-xl font-bold text-gray-800 dark:text-white flex justify-start items-center gap-7">
               <p>{item.icon}</p>
