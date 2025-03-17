@@ -1,16 +1,14 @@
-import React from "react";
 import {
   Html,
-  Body,
   Head,
-  Heading,
-  Hr,
-  Container,
   Preview,
+  Body,
+  Container,
   Section,
+  Heading,
   Text,
-  Tailwind,
-} from "jsx-email";
+  Hr,
+} from "@react-email/components";
 
 type ContactFormEmailProps = {
   message: string;
@@ -25,20 +23,26 @@ export default function ContactFormEmail({
     <Html>
       <Head />
       <Preview>Nuevo mensaje recibido desde el portfolio</Preview>
-      <Tailwind>
-        <Body className="bg-gray-100 text-black">
-          <Container>
-            <Section className="bg-white borderBlack my-10 px-10 py-4 rounded-md">
-              <Heading className="leading-tight">
-                Recibiste el siguiente mensaje desde el formulario de contacto:
-              </Heading>
-              <Text>{message}</Text>
-              <Hr />
-              <Text>Email del remitente: {senderEmail}</Text>
-            </Section>
-          </Container>
-        </Body>
-      </Tailwind>
+      <Body style={{ backgroundColor: "#f3f3f3", color: "#000" }}>
+        <Container>
+          <Section
+            style={{
+              backgroundColor: "#fff",
+              padding: "20px",
+              borderRadius: "8px",
+              border: "1px solid #eaeaea",
+              marginTop: "20px",
+            }}
+          >
+            <Heading style={{ marginBottom: "16px" }}>
+              Recibiste un nuevo mensaje:
+            </Heading>
+            <Text style={{ marginBottom: "16px" }}>{message}</Text>
+            <Hr />
+            <Text>Email del remitente: {senderEmail}</Text>
+          </Section>
+        </Container>
+      </Body>
     </Html>
   );
 }
