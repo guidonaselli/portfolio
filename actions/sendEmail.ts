@@ -1,26 +1,40 @@
-import { EmailTemplate } from "@/email/email-template";
+"use server";
+
+import ContactFormEmail from "@/email/contact-form-email";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
-resend.apiKeys.create({ name: "Production" });
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendEmail = async (formData: FormData) => {
-  let senderEmail = formData.get("senderEmail") as string;
-  const message = formData.get("message") as string;
+  const senderEmail = formData.get("senderEmail");
+  const message = formData.get("message");
+
+  // Validación básica
+  if (!senderEmail || typeof senderEmail !== "string") {
+    return { error: "Invalid sender email" };
+  }
+  if (!message || typeof message !== "string") {
+    return { error: "Invalid message" };
+  }
+  if (message.length > 5000) {
+    return { error: "Message too long" };
+  }
 
   try {
-    console.log("About to call resend.emails.send");
-    const { data } = await resend.emails.send({
-      from: "<onboarding@resend.dev>",
-      to: ["guidonaselli@gmail.com"],
+    const { data, error } = await resend.emails.send({
+      from: "Portfolio Contact <onboarding@resend.dev>",
+      to: "guidonaselli@gmail.com",
       subject: "Message from portfolio contact form",
-      text: message,
-      react: EmailTemplate({ message: message, senderEmail: senderEmail }),
+      replyTo: senderEmail,
+      react: ContactFormEmail({ message, senderEmail }),
     });
-    console.log("sendEmail completed");
+
+    if (error) {
+      return { error: error.message };
+    }
+
     return { data };
   } catch (error) {
-    console.error("sendEmail error", error);
-    return error;
+    return { error: "Failed to send email" };
   }
 };

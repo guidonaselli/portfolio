@@ -45,13 +45,13 @@ export default function Contact() {
         onSubmit={async (event) => {
           event.preventDefault();
           const formData = new FormData(event.target as HTMLFormElement);
-          try {
-            await sendEmail(formData);
+          const result = await sendEmail(formData);
+
+          if ("error" in result) {
+            toast.error(result.error);
+          } else {
             toast.success("Email sent successfully!");
-          } catch (error) {
-            console.error(error);
-            // Handle any other types of errors here
-            toast.error("An unexpected error occurred: " + error);
+            (event.target as HTMLFormElement).reset();
           }
         }}
       >
