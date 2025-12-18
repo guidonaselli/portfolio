@@ -39,52 +39,52 @@ export const links = [
 
 export const experiencesData = [
   {
-    title: "Accounting assistant",
-    location: "Argentina, CABA",
+    title: "Full Stack Developer | GIA International",
+    location: "Buenos Aires, Argentina",
     description:
-      "Since I finished high school, I have worked at an accounting firm as an assistant.",
+      "Developing a monitoring platform for integrated security services. Building microservices with Java 17 and Spring Boot. Implementing frontend with Angular 14 and TypeScript. Managing deployments with Docker and GitLab CI/CD.",
     icon: React.createElement(CgWorkAlt),
-    date: "2017 - 2022",
+    date: "Dec 2025 - Present",
   },
   {
-    title: "Fullstack Bootcamp",
-    location: "Argentina, CABA",
+    title: "Bachelor of Computer Science",
+    location: "Universidad de La Ciudad",
     description:
-      "I graduated after 6 months of studying. I learned HTML, CSS, JavaScript, Vuejs, Node.js and SQL.",
+      "Currently studying to complement my technical knowledge with a solid theoretical foundation in computer science.",
     icon: React.createElement(FaGraduationCap),
-    date: "2021",
+    date: "2025 - Expected 2026",
   },
   {
-    title: "Freelancer",
+    title: "Full Stack Developer | Interaxa S.A.",
+    location: "Buenos Aires, Argentina",
+    description:
+      "Developed scalable web applications using Angular and Java Spring Boot for clients like Banco Patagonia, ICBC, ITAU, and Despegar. Worked with Genesys Cloud platform and followed Agile methodologies.",
+    icon: React.createElement(CgWorkAlt),
+    date: "2024 - 2025",
+  },
+  {
+    title: "Technical Degree in System Analysis",
+    location: "ORT Technological Institute",
+    description:
+      "Graduated as System Analyst. Learned Java, JavaScript, Vue.js, C#, SQL, UML, and software engineering principles.",
+    icon: React.createElement(FaGraduationCap),
+    date: "2022 - 2023",
+  },
+  {
+    title: "Web Developer | Freelancer",
     location: "LATAM",
     description:
-      "I worked as a freelancer while studying to put the theoretical knowledge into practice.",
+      "Designed and deployed custom web pages and e-commerce platforms using JavaScript, Vue.js, and Python. Implemented responsive designs and collaborated directly with clients.",
     icon: React.createElement(CgWorkAlt),
-    date: "2021 - 2024",
+    date: "2021 - 2023",
   },
   {
-    title: "System Analyst",
-    location: "Argentina, CABA",
+    title: "Full Stack Bootcamp",
+    location: "Buenos Aires, Argentina",
     description:
-      "I graduated in a technicature of system analyst. I learned Java, Javascript, Vuejs, C#, Java, SQL, UML.",
+      "Completed intensive 6-month bootcamp. Learned HTML, CSS, JavaScript, Vue.js, Node.js, and SQL.",
     icon: React.createElement(FaGraduationCap),
-    date: "2022 - 2024",
-  },
-  {
-    title: "Interaxa S.A.",
-    location: "Argentina, CABA",
-    description:
-      "I work as a fullstack developer. I work with Angular.js, Java Springboot, PostreSQL, Docker",
-    icon: React.createElement(CgWorkAlt),
-    date: "2024 - actual",
-  },
-  {
-    title: "Bachelors Degree in Computer Science",
-    location: "Argentina, CABA",
-    description:
-      "I am currently studying a degree in computer science to complement my knowledge and my previous studies.",
-    icon: React.createElement(FaGraduationCap),
-    date: "2025 - Expected June 2026",
+    date: "2021",
   },
 ] as const;
 
