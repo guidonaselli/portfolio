@@ -2,23 +2,23 @@ import React from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 
-export default function SubmitBtn() {
-  const {
-    formState: { isSubmitting },
-  } = useForm();
+type SubmitBtnProps = {
+  pending: boolean;
+};
 
+export default function SubmitBtn({ pending }: SubmitBtnProps) {
   return (
     <button
       type="submit"
-      className="group flex items-center justify-center gap-2 h-[3rem] w-[8rem] bg-gray-900 text-white rounded-full outline-none transition-all focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105 dark:bg-white dark:bg-opacity-10 disabled:scale-100 disabled:bg-opacity-65"
-      disabled={isSubmitting}
+      className="group flex items-center justify-center gap-2.5 h-[3rem] w-[9rem] bg-accent hover:bg-accent-hover text-zinc-950 font-bold rounded-full outline-none transition-all duration-200 focus:scale-105 hover:scale-105 active:scale-[0.98] disabled:scale-100 disabled:bg-opacity-50 cursor-pointer border border-transparent shadow-md shadow-emerald-500/5"
+      disabled={pending}
     >
-      {isSubmitting ? (
-        <div className="h-5 w-5 animate-spin rounded-full border-b-2 border-white"></div>
+      {pending ? (
+        <div className="h-4 w-4 animate-spin rounded-full border-2 border-zinc-950 border-t-transparent" />
       ) : (
         <>
-          Submit{" "}
-          <FaPaperPlane className="text-xs opacity-70 transition-all group-hover:translate-x-1 group-hover:-translate-y-1" />{" "}
+          <span className="font-mono text-xs uppercase tracking-wider">Send message</span>
+          <FaPaperPlane className="text-[0.7rem] opacity-80 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </>
       )}
     </button>

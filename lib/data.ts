@@ -68,7 +68,7 @@ export const experiencesData = [
     description:
       "Graduated as System Analyst. Learned Java, JavaScript, Vue.js, C#, SQL, UML, and software engineering principles.",
     icon: React.createElement(FaGraduationCap),
-    date: "2022 - 2023",
+    date: "2022 - 2024",
   },
   {
     title: "Web Developer | Freelancer",
@@ -90,11 +90,12 @@ export const experiencesData = [
 
 export const projectsData = [
   {
-    title: "TodoServicios",
+    title: "Benta Servicios",
     description:
       "E-commerce of services. Able to registering users, monthly subscription to publish a service, contacting a service creator with a real-time chat.",
-    tags: ["Django", "Tailwind", "PostgreSQL", "ON DEVELOPMENT!"],
+    tags: ["Django", "Tailwind", "PostgreSQL", "Live!"],
     imageUrl: projectImg5,
+    link: "https://www.bentaservicios.com.ar/",
   },
   {
     title: "SignalTech",
@@ -102,6 +103,7 @@ export const projectsData = [
       "E-commerce for a company that sells acoustic and visual signage",
     tags: ["TypeScript", "Firebase"],
     imageUrl: projectImg4,
+    link: "",
   },
   {
     title: "ARchitect",
@@ -109,6 +111,7 @@ export const projectsData = [
       "The frontend blog of an application to preview 3D furniture in a room. It shows posts, comments and likes with real-time notifications and also allows you to create an account.",
     tags: ["Vue.js", "axios", "pinia", "Firebase", "Tailwind"],
     imageUrl: projectImg3,
+    link: "",
   },
   {
     title: "Andar",
@@ -116,6 +119,7 @@ export const projectsData = [
       "A website for an Argentine medical prepaid. It has the function to select the health insurance plan that the consumer prefers.",
     tags: ["HTML", "CSS", "JavaScript"],
     imageUrl: projectImg2,
+    link: "",
   },
   {
     title: "BNF Contadores",
@@ -123,6 +127,7 @@ export const projectsData = [
       "My first freelancer project. A single page for an accounting company. Its very simple and clean.",
     tags: ["HTML", "CSS", "JavaScript"],
     imageUrl: projectImg1,
+    link: "",
   },
 ] as const;
 
@@ -133,7 +138,7 @@ export const skillsData = [
   "JavaScript",
   "TypeScript",
   "Java",
-  "Springboot",
+  "Spring Boot",
   "Vue.js",
   "Node.js",
   "Git",
@@ -143,4 +148,6 @@ export const skillsData = [
   "Tailwind",
   "PostgreSQL",
   "Firebase",
+  "Docker",
+  "CI/CD",
 ] as const;

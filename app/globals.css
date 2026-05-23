@@ -1,14 +1,112 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
+@theme {
+  --font-sans: var(--font-geist-sans), sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-active: var(--accent-active);
+}
+
+:root {
+  --line-color: oklch(0.92 0.01 240);
+  --grid-dot-color: oklch(0.85 0.01 240);
+  --accent: oklch(0.65 0.14 160); /* Calibrated desaturated Emerald/Teal */
+  --accent-hover: oklch(0.60 0.15 160);
+  --accent-active: oklch(0.55 0.16 160);
+  --bg-primary: oklch(0.99 0.005 240); /* Slightly tinted white */
+  --bg-secondary: oklch(0.97 0.005 240);
+  --text-primary: oklch(0.15 0.01 240);
+  --text-secondary: oklch(0.45 0.01 240);
+}
+
+.dark {
+  --line-color: oklch(0.20 0.01 240);
+  --grid-dot-color: oklch(0.25 0.01 240);
+  --accent: oklch(0.65 0.14 160);
+  --accent-hover: oklch(0.70 0.15 160);
+  --accent-active: oklch(0.75 0.16 160);
+  --bg-primary: oklch(0.10 0.01 240); /* Sleek tinted dark-zinc */
+  --bg-secondary: oklch(0.13 0.01 240);
+  --text-primary: oklch(0.95 0.01 240);
+  --text-secondary: oklch(0.65 0.01 240);
+}
+
 html {
-  --line-color: #e5e7eb;
+  scroll-behavior: smooth;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-html.dark {
-  --line-color: rgba(255, 255, 255, 0.2);
+body {
+  overflow-x: hidden;
 }
 
-.borderBlack {
-  @apply border border-black/10;
+/* Utilitarian Tech Backdrops */
+.grid-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -20;
+  background-color: var(--bg-primary);
+  background-image: 
+    linear-gradient(to right, var(--line-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line-color) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.dot-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -19;
+  background-image: radial-gradient(var(--grid-dot-color) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Liquid Glass Refraction - Frosted glass with structural light refraction borders */
+.liquid-glass {
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 4px 30px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.dark .liquid-glass {
+  background-color: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 
+    0 4px 30px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Border styling helper */
+.border-utilitarian {
+  border: 1px solid var(--line-color);
+}
+
+/* Hide scrollbar defaults while keeping utility */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line-color);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
 }

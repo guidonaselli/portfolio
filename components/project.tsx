@@ -3,69 +3,125 @@
 import { useRef } from "react";
 import { projectsData } from "@/lib/data";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
-type ProjectProps = (typeof projectsData)[number];
+type ProjectProps = (typeof projectsData)[number] & {
+  gridSpan: string;
+  index: number;
+};
+
+const cardVariants: Variants = {
+  initial: {
+    opacity: 0,
+    y: 40,
+    scale: 0.98,
+  },
+  animate: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 90,
+      damping: 18,
+      delay: index * 0.05,
+    },
+  }),
+};
 
 export default function Project({
   title,
   description,
   tags,
   imageUrl,
+  gridSpan,
+  index,
+  link,
 }: ProjectProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["0 1", "1.33 1"],
-  });
-  const scaleProgess = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-  const opacityProgess = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
+
+  // Format index as two digits e.g. "01"
+  const formattedIndex = String(index + 1).padStart(2, "0");
+
+  const CardWrapper = link ? motion.a : motion.div;
+  const wrapperProps = link
+    ? {
+        href: link,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        className: `group flex flex-col justify-between bg-white border border-zinc-200/60 dark:bg-zinc-900/40 dark:border-zinc-800/80 rounded-[2rem] p-6 sm:p-8 hover:border-accent/40 dark:hover:border-accent/40 hover:border-zinc-300 dark:hover:border-zinc-700/60 transition-all duration-300 shadow-sm hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.03)] cursor-pointer ${gridSpan}`,
+      }
+    : {
+        className: `group flex flex-col justify-between bg-white border border-zinc-200/60 dark:bg-zinc-900/40 dark:border-zinc-800/80 rounded-[2rem] p-6 sm:p-8 hover:border-zinc-300 dark:hover:border-zinc-700/60 transition-all duration-300 shadow-sm hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.03)] ${gridSpan}`,
+      };
 
   return (
-    <motion.div
-      ref={ref}
-      style={{
-        scale: scaleProgess,
-        opacity: opacityProgess,
-      }}
-      className="group mb-3 sm:mb-8 last:mb-0"
+    <CardWrapper
+      ref={ref as any}
+      variants={cardVariants}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true, margin: "-80px" }}
+      custom={index}
+      {...(wrapperProps as any)}
     >
-      <section className="bg-gray-100 max-w-[42rem] border border-black/5 rounded-lg overflow-hidden sm:pr-8 relative sm:h-[20rem] hover:bg-gray-200 transition sm:group-even:pl-8 dark:text-white dark:bg-white/10 dark:hover:bg-white/20">
-        <div className="pt-4 pb-7 px-5 sm:pl-10 sm:pr-2 sm:pt-10 sm:max-w-[50%] flex flex-col h-full sm:group-even:ml-[18rem]">
-          <h3 className="text-2xl font-semibold">{title}</h3>
-          <p className="mt-2 leading-relaxed text-gray-700 dark:text-white/70">
+      <div className="flex flex-col h-full justify-between">
+        {/* Card Header (Project Title & Index) */}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <span className="font-mono text-[0.65rem] text-accent tracking-widest font-bold uppercase">
+              PROJ // {formattedIndex}
+            </span>
+            <span className="font-mono text-[0.7rem] text-zinc-400 dark:text-zinc-500 tracking-wider flex items-center gap-1 group-hover:text-accent transition-colors duration-200">
+              {link ? (
+                <>
+                  VISIT SITE <span className="text-[0.6rem] font-bold">↗</span>
+                </>
+              ) : (
+                "VERIFIED RELEASE"
+              )}
+            </span>
+          </div>
+
+          <h3 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-2 leading-none">
+            {title}
+          </h3>
+          
+          <p className="text-[0.9rem] leading-relaxed text-zinc-500 dark:text-zinc-400 mb-6 max-w-[55ch]">
             {description}
           </p>
-          <ul className="flex flex-wrap mt-4 gap-2 sm:mt-auto">
-            {tags.map((tag, index) => (
+        </div>
+
+        {/* Media Container (Project Image with hardware-accelerated scale on group hover) */}
+        <div className="relative w-full h-[180px] sm:h-[220px] rounded-2xl overflow-hidden border border-zinc-200/40 dark:border-zinc-800/40 bg-zinc-50 dark:bg-zinc-950 mb-6 shadow-inner">
+          <Image
+            src={imageUrl}
+            alt={`${title} project preview`}
+            quality={90}
+            fill
+            className="object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-500 ease-out will-change-transform"
+          />
+        </div>
+
+        {/* Card Footer (Tags list) */}
+        <ul className="flex flex-wrap gap-1.5 mt-auto">
+          {tags.map((tag, tagIndex) => {
+            const isSpecialTag = tag.includes("!") || tag.toUpperCase() === "ON DEVELOPMENT!";
+            return (
               <li
-                className="bg-black/[0.7] px-3 py-1 text-[0.7rem] uppercase tracking-wider text-white rounded-full dark:text-white/70"
-                key={index}
+                className={`font-mono text-[0.65rem] tracking-wider uppercase px-2.5 py-1 rounded-lg border ${
+                  isSpecialTag
+                    ? "bg-accent/10 border-accent/20 text-accent font-semibold"
+                    : "bg-zinc-100/50 border-zinc-200 dark:bg-zinc-800/50 dark:border-zinc-700/60 text-zinc-600 dark:text-zinc-400"
+                }`}
+                key={tagIndex}
               >
                 {tag}
               </li>
-            ))}
-          </ul>
-        </div>
-
-        <Image
-          src={imageUrl}
-          alt="Project I worked on"
-          quality={95}
-          className="absolute hidden sm:block top-8 -right-40 w-[28.25rem] rounded-t-lg shadow-2xl
-        transition 
-        group-hover:scale-[1.04]
-        group-hover:-translate-x-3
-        group-hover:translate-y-3
-        group-hover:-rotate-2
-
-        group-even:group-hover:translate-x-3
-        group-even:group-hover:translate-y-3
-        group-even:group-hover:rotate-2
-
-        group-even:right-[initial] group-even:-left-40"
-        />
-      </section>
-    </motion.div>
+            );
+          })}
+        </ul>
+      </div>
+    </CardWrapper>
   );
 }

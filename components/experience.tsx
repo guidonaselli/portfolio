@@ -13,57 +13,57 @@ export default function Experience() {
     <section
       id="experience"
       ref={ref}
-      className="scroll-mt-28 mb-28 sm:mb-40"
+      className="scroll-mt-28 mb-24 md:mb-32 w-full max-w-[1200px] mx-auto px-6 lg:px-8"
     >
       <SectionHeading>My experience</SectionHeading>
 
-      <div className="relative max-w-3xl mx-auto">
-        {/* Línea vertical central */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gray-300 dark:bg-gray-600" />
+      {/* Sleek Borderless Utilitarian List */}
+      <div className="flex flex-col border-t border-zinc-200 dark:border-zinc-800/80">
+        {experiencesData.map((item, index) => {
+          // Parse title and company from the string e.g., "Full Stack Developer | GIA International"
+          const parts = item.title.split(" | ");
+          const role = parts[0];
+          const company = parts[1] || "";
 
-        {experiencesData.map((item, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            viewport={{ once: true }}
-            className={`relative flex items-center mb-8 ${
-              index % 2 === 0 ? "flex-row" : "flex-row-reverse"
-            }`}
-          >
-            {/* Contenido */}
-            <div className={`w-5/12 ${index % 2 === 0 ? "text-right pr-8" : "text-left pl-8"}`}>
-              <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300">
-                <div className={`flex items-center gap-3 mb-2 ${index % 2 === 0 ? "justify-end" : "justify-start"}`}>
-                  <span className="text-2xl text-indigo-600 dark:text-indigo-400">
+          return (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.05, type: "spring", stiffness: 100, damping: 20 }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="group relative grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-10 border-b border-zinc-200 dark:border-zinc-800/80 transition-colors duration-300 hover:bg-zinc-100/30 dark:hover:bg-zinc-900/10 px-2 rounded-lg"
+            >
+              {/* Monospace Metadata (Dates & Location) - Columns 1 to 3 */}
+              <div className="md:col-span-3 flex flex-col justify-start md:text-left gap-1.5">
+                <span className="font-mono text-[0.75rem] font-bold text-accent tracking-wider uppercase">
+                  {item.date}
+                </span>
+                <span className="font-mono text-[0.7rem] text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
+                  {item.location}
+                </span>
+              </div>
+
+              {/* Work Details - Columns 4 to 12 */}
+              <div className="md:col-span-9 flex flex-col text-left">
+                <div className="flex items-center gap-3.5 mb-3 flex-wrap">
+                  {/* SVG Icon */}
+                  <span className="text-xl text-zinc-400 dark:text-zinc-500 group-hover:text-accent transition-colors duration-300">
                     {item.icon}
                   </span>
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-white">
-                    {item.title}
+                  
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-50 tracking-tight leading-none">
+                    {role} {company && <span className="text-zinc-400 dark:text-zinc-500 font-normal">// {company}</span>}
                   </h3>
                 </div>
-                <p className="text-sm text-indigo-600 dark:text-indigo-400 font-medium mb-1">
-                  {item.date}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                  {item.location}
-                </p>
-                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+
+                <p className="text-[0.92rem] text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-[65ch]">
                   {item.description}
                 </p>
               </div>
-            </div>
-
-            {/* Punto central */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
-              <div className="w-4 h-4 bg-indigo-600 dark:bg-indigo-400 rounded-full border-4 border-white dark:border-gray-900 shadow-md" />
-            </div>
-
-            {/* Espaciador */}
-            <div className="w-5/12" />
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );
