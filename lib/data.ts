@@ -108,8 +108,8 @@ export const projectsData = [
   {
     title: "ARchitect",
     description:
-      "The frontend blog of an application to preview 3D furniture in a room. It shows posts, comments and likes with real-time notifications and also allows you to create an account.",
-    tags: ["Vue.js", "axios", "pinia", "Firebase", "Tailwind"],
+      "The frontend blog of an application to preview 3D furniture in a room. Contributed to the companion mobile application developed in Kotlin. Shows posts, comments, and likes with real-time notifications.",
+    tags: ["Kotlin", "Vue.js", "axios", "pinia", "Firebase", "Tailwind"],
     imageUrl: projectImg3,
     link: "",
   },
