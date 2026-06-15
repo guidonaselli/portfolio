@@ -2,17 +2,97 @@
 
 import Image from "next/image";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { BsArrowRight, BsLinkedin } from "react-icons/bs";
 import { HiDownload } from "react-icons/hi";
 import { FaGithubSquare } from "react-icons/fa";
 import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
+import AsciiBits from "./ascii-bits";
+
+const KONAMI = [
+  "ArrowUp",
+  "ArrowUp",
+  "ArrowDown",
+  "ArrowDown",
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowLeft",
+  "ArrowRight",
+  "b",
+  "a",
+];
 
 export default function Intro() {
   const { ref } = useSectionInView("Home", 0.5);
   const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
+  const [portraitHover, setPortraitHover] = React.useState(false);
+  const [debugMode, setDebugMode] = React.useState(false);
+  const [burst, setBurst] = React.useState(false);
+  const [decoded, setDecoded] = React.useState(false);
+  const [rawView, setRawView] = React.useState(false);
+  const decodeTimer = React.useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined
+  );
+
+  // Easter egg 1: a note for whoever opens DevTools.
+  React.useEffect(() => {
+    const head =
+      "color:oklch(0.65 0.14 160);font:600 13px ui-monospace,monospace";
+    const body = "color:#a1a1aa;font:12px ui-monospace,monospace";
+    // eslint-disable-next-line no-console
+    console.log("%c// GUIDO NASELLI — SYSTEMS ANALYST", head);
+    // eslint-disable-next-line no-console
+    console.log(
+      "%cReading the source? Good instinct.\n" +
+        "Let's build something → guidonaselli@gmail.com\n" +
+        "ps: try ↑ ↑ ↓ ↓ ← → ← → B A",
+      body
+    );
+  }, []);
+
+  // Easter egg 2: Konami code → debug mode (portrait dissolves into bits).
+  React.useEffect(() => {
+    let i = 0;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setDebugMode(false);
+        return;
+      }
+      const expected = KONAMI[i];
+      if (e.key.toLowerCase() === expected.toLowerCase()) {
+        i++;
+        if (i === KONAMI.length) {
+          i = 0;
+          setBurst(true);
+          setTimeout(() => setBurst(false), 1200);
+          setDebugMode(true);
+        }
+      } else {
+        i = e.key === KONAMI[0] ? 1 : 0;
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  // Easter egg 3: linger on the portrait for 3s to decode a hidden signal.
+  const onPortraitEnter = () => {
+    setPortraitHover(true);
+    decodeTimer.current = setTimeout(() => setDecoded(true), 3000);
+  };
+  const onPortraitLeave = () => {
+    setPortraitHover(false);
+    setDecoded(false);
+    clearTimeout(decodeTimer.current);
+  };
+
+  const bitsLevel = burst
+    ? "burst"
+    : portraitHover || debugMode
+    ? "active"
+    : "idle";
 
   return (
     <section
@@ -115,11 +195,17 @@ export default function Intro() {
             className="relative"
           >
             {/* Fine Art Decorative Media Frame */}
-            <div className="relative group max-w-[280px] sm:max-w-[320px]">
-              {/* Offset shadow outline */}
-              <div className="absolute -inset-2 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 -z-10 translate-x-2 translate-y-2 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform duration-300" />
-              
-              <div className="overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 p-4 shadow-sm">
+            <div
+              className="relative group max-w-[280px] sm:max-w-[320px]"
+              onMouseEnter={onPortraitEnter}
+              onMouseLeave={onPortraitLeave}
+            >
+              {/* Offset refraction outline */}
+              <div className="absolute -inset-2 rounded-2xl border border-black/5 dark:border-white/10 -z-10 translate-x-2 translate-y-2 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform duration-300" />
+
+              <div className="relative overflow-hidden rounded-2xl border border-black/5 dark:border-white/10 bg-zinc-100/80 dark:bg-zinc-900/60 p-4 shadow-sm backdrop-blur-sm">
+                {/* Liquid glass top reflection */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 dark:via-white/15 to-transparent" />
                 <motion.div
                   animate={{ y: [0, -6, 0] }}
                   transition={{
@@ -127,20 +213,67 @@ export default function Intro() {
                     ease: "easeInOut",
                     repeat: Infinity,
                   }}
+                  className="relative"
                 >
                   <Image
                     src="/CV_Image.png"
-                    alt="Guido Naselli portrait"
+                    alt="Guido Naselli portrait rendered in ASCII"
                     width="400"
                     height="400"
                     priority={true}
-                    className="aspect-square w-full rounded-xl object-cover grayscale hover:grayscale-0 transition-all duration-500 shadow-inner"
+                    className={`aspect-square w-full rounded-xl object-cover transition-all duration-500 shadow-inner ${
+                      rawView ? "invert hue-rotate-180 contrast-125" : ""
+                    } ${burst ? "opacity-20 blur-[1px]" : ""}`}
                   />
+                  <AsciiBits level={bitsLevel} />
+
+                  {/* Easter egg 3: decoded-signal caption after a long hover */}
+                  <AnimatePresence>
+                    {decoded && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-x-2 bottom-2 rounded-lg border border-black/5 dark:border-white/10 bg-zinc-50/80 dark:bg-zinc-950/70 px-3 py-1.5 font-mono text-[0.6rem] text-accent uppercase tracking-widest backdrop-blur-sm"
+                      >
+                        signal decoded // let&apos;s talk
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
-                
+
+                {/* Easter egg 2: debug-mode terminal readout (Konami) */}
+                <AnimatePresence>
+                  {debugMode && (
+                    <motion.pre
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="mt-3 overflow-hidden rounded-lg border border-accent/30 bg-zinc-950/90 px-3 py-2.5 font-mono text-[0.6rem] leading-relaxed text-accent"
+                    >
+                      {`> debug --portrait
+stack ···· react / next / spring
+status ··· high-agency
+since ···· 2019
+coffee ··· ∞
+[ esc to exit ]`}
+                    </motion.pre>
+                  )}
+                </AnimatePresence>
+
                 {/* Tech specifications tag */}
                 <div className="mt-4 flex items-center justify-between font-mono text-[0.6rem] text-zinc-500 uppercase tracking-widest px-1">
-                  <span>SCALE: 1:1</span>
+                  {/* Easter egg 4: click the live dot to toggle raw-signal view */}
+                  <button
+                    type="button"
+                    onClick={() => setRawView((v) => !v)}
+                    aria-pressed={rawView}
+                    aria-label="Toggle raw signal view"
+                    className="flex items-center gap-1.5 rounded-full transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-1 focus-visible:ring-accent cursor-pointer"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                    {rawView ? "RAW // SIGNAL" : "ASCII // 1:1"}
+                  </button>
                   <span>VERIFIED // BUENOS AIRES</span>
                 </div>
               </div>
