@@ -32,7 +32,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="!scroll-smooth">
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-gray-50 text-gray-950 relative pt-28 sm:pt-36 dark:bg-zinc-950 dark:text-zinc-50 transition-colors duration-300`}
