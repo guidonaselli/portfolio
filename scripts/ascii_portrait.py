@@ -14,7 +14,7 @@ OUT = r"D:\IT\Projects\portfolio\public\CV_Image.png"
 # Light -> dark ramp (index 0 = white/space, last = densest ink).
 RAMP = " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@"
 
-COLS = 120          # horizontal glyph resolution
+COLS = 145          # horizontal glyph resolution
 CHAR_ASPECT = 0.52  # monospace cell height/width correction
 CELL = 11           # px per glyph cell in the output raster
 INK = (24, 24, 27)  # zinc-900, drawn on transparent bg
@@ -22,23 +22,20 @@ INK = (24, 24, 27)  # zinc-900, drawn on transparent bg
 def main():
     img = Image.open(SRC).convert("L")
 
-    # Trim the wide white margins so the face fills the frame.
+    # Trim the wide white margins so the subject fills the full width.
     inv = ImageOps.invert(img)
     bbox = inv.point(lambda p: 255 if p > 28 else 0).getbbox()
     if bbox:
-        pad = int(min(img.size) * 0.04)
+        pad = int(min(img.size) * 0.015)
         l, t, r, b = bbox
         img = img.crop((max(0, l - pad), max(0, t - pad),
                         min(img.width, r + pad), min(img.height, b + pad)))
 
-    # Pad to a square so the portrait isn't stretched in the 1:1 frame.
-    side = max(img.size)
-    sq = Image.new("L", (side, side), 255)
-    sq.paste(img, ((side - img.width) // 2, (side - img.height) // 2))
-    img = sq
-
     img = ImageOps.autocontrast(img, cutoff=1)
-    img = ImageEnhance.Contrast(img).enhance(1.35)
+    # Deepen midtones (gamma > 1) so facial features read as denser glyphs,
+    # then add global contrast.
+    img = img.point(lambda p: int(255 * (p / 255) ** 1.4))
+    img = ImageEnhance.Contrast(img).enhance(1.5)
 
     rows = int(COLS * CHAR_ASPECT)
     small = img.resize((COLS, rows), Image.LANCZOS)
