@@ -31,6 +31,13 @@ def main():
         img = img.crop((max(0, l - pad), max(0, t - pad),
                         min(img.width, r + pad), min(img.height, b + pad)))
 
+    # Pad to a square with a small, even margin so the head sits centered in the
+    # 1:1 frame (no letterbox, balanced negative space on all sides).
+    side = int(max(img.size) * 1.08)
+    sq = Image.new("L", (side, side), 255)
+    sq.paste(img, ((side - img.width) // 2, (side - img.height) // 2))
+    img = sq
+
     img = ImageOps.autocontrast(img, cutoff=1)
     # Deepen midtones (gamma > 1) so facial features read as denser glyphs,
     # then add global contrast.
@@ -59,15 +66,20 @@ def main():
         font = ImageFont.load_default()
 
     W, H = COLS * cw, rows * ch
-    canvas = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    # Square the raster so it fits the 1:1 frame with no letterbox; the
+    # proportionally-correct (wider) glyph block is centered vertically.
+    side = max(W, H)
+    canvas = Image.new("RGBA", (side, side), (0, 0, 0, 0))
     draw = ImageDraw.Draw(canvas)
+    ox, oy = (side - W) // 2, (side - H) // 2
     for j, line in enumerate(lines):
         for i, c in enumerate(line):
             if c != " ":
-                draw.text((i * cw, j * ch), c, font=font, fill=INK + (255,))
+                draw.text((ox + i * cw, oy + j * ch), c, font=font,
+                          fill=INK + (255,))
 
     canvas.save(OUT)
-    print(f"saved {OUT} ({W}x{H}), grid {COLS}x{rows}")
+    print(f"saved {OUT} ({side}x{side}), grid {COLS}x{rows}")
 
 if __name__ == "__main__":
     main()

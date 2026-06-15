@@ -221,7 +221,7 @@ export default function Intro() {
                     width="400"
                     height="400"
                     priority={true}
-                    className={`aspect-square w-full rounded-xl object-contain bg-[#faf9f7] p-3 transition-all duration-500 shadow-inner ${
+                    className={`aspect-square w-full rounded-xl object-cover bg-[#faf9f7] p-2 transition-all duration-500 shadow-inner ${
                       rawView ? "invert hue-rotate-180 contrast-125" : ""
                     } ${burst ? "opacity-20 blur-[1px]" : ""}`}
                   />
