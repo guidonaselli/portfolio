@@ -92,6 +92,10 @@ def build_final():
     )
     # Apple touch icon (no transparency, 180px) for iOS home-screen.
     concept_glyph(180).save(os.path.join(pub, "apple-touch-icon.png"))
+    # Modern PNG favicons under fresh filenames so browsers/CDN can't serve a
+    # stale cached /favicon.ico in their place.
+    concept_glyph(32).save(os.path.join(pub, "favicon-32.png"))
+    concept_glyph(16).save(os.path.join(pub, "favicon-16.png"))
     print("final favicon.ico + apple-touch-icon.png written to", pub)
 
 
